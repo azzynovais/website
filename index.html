@@ -2,231 +2,1334 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Currículo - Float</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Float</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: "Fira Code", monospace;
-      background: url("./wallpaper.jpg") no-repeat center center fixed;
-      background-size: cover;
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+    
+    :root {
+      --primary: #FF3366;
+      --secondary: #00CC99;
+      --tertiary: #FFCC00;
+      --quaternary: #3366FF;
+      --dark: #0A0A0A;
+      --light: #F5F5F5;
+      --gray: #8E8E8E;
+      --border-width: 4px;
+      --shadow-offset: 8px;
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      line-height: 1.6;
-      color: #d3c6aa;
+      box-sizing: border-box;
     }
-    .overlay {
-      background: rgba(43, 51, 57, 0.8); /* Everforest bg + transparência */
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    /* Cursor customizado */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--dark);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: all 0.1s ease;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-follower {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 51, 102, 0.2);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 9998;
+    }
+
+    /* Navegação */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 40px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      background-color: var(--primary);
+      padding: 10px 20px;
+      border: var(--border-width) solid var(--dark);
+      transform: rotate(-2deg);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transition: all 0.2s ease;
+    }
+
+    .logo:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark), 0 0 0 2px var(--dark);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-link {
+      font-weight: 700;
+      color: var(--dark);
+      text-decoration: none;
+      padding: 10px 15px;
+      background-color: var(--light);
+      border: var(--border-width) solid var(--dark);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--dark);
+    }
+
+    /* Seção Hero */
+    .hero {
       min-height: 100vh;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
-      background: rgba(44, 53, 50, 0.7);
-      border-radius: 1rem;
-    }
-    h1, h2, h3 {
-      color: #a7c080; /* verde musgo Everforest */
-    }
-    h1 {
-      border-bottom: 2px solid #a7c080;
-      padding-bottom: 0.3rem;
-      margin-bottom: 1rem;
-    }
-    a {
-      color: #83c092;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .section {
-      margin-bottom: 2rem;
-    }
-    .tag {
-      background: #3c474d;
-      color: #d3c6aa;
-      padding: 0.2rem 0.6rem;
-      border-radius: 0.5rem;
-      margin-right: 0.4rem;
-      font-size: 0.9rem;
-    }
-    .highlight {
-      color: #e67e80;
-    }
-    .quote {
-      font-style: italic;
-      color: #9da9a0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* botões mais coloridos */
-    .btn {
+    .hero-content {
+      max-width: 1200px;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: clamp(60px, 15vw, 120px);
+      font-weight: 700;
+      line-height: 0.9;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title span {
       display: inline-block;
-      margin: 0.3rem 0.5rem 0.3rem 0;
-      padding: 0.6rem 1rem;
-      border-radius: 0.6rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .btn:hover {
-      transform: scale(1.05);
-    }
-    .btn-green {
-      background: #a7c080;
-      color: #2b3339;
-    }
-    .btn-green:hover {
-      background: #83c092;
-    }
-    .btn-red {
-      background: #e67e80;
-      color: #2b3339;
-    }
-    .btn-red:hover {
-      background: #e69875;
-    }
-    .btn-blue {
-      background: #7fbbb3;
-      color: #2b3339;
-    }
-    .btn-blue:hover {
-      background: #89b482;
-    }
-    .btn-yellow {
-      background: #dbbc7f;
-      color: #2b3339;
-    }
-    .btn-yellow:hover {
-      background: #d8a657;
+      position: relative;
     }
 
-    /* idioma switch */
-    .lang-switch {
-      text-align: right;
-      margin-bottom: 1rem;
+    .hero-title span:nth-child(1) {
+      color: var(--primary);
+      transform: rotate(-5deg);
+      z-index: 3;
     }
+
+    .hero-title span:nth-child(2) {
+      color: var(--secondary);
+      transform: rotate(3deg);
+      z-index: 2;
+    }
+
+    .hero-title span:nth-child(3) {
+      color: var(--tertiary);
+      transform: rotate(-2deg);
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(18px, 4vw, 28px);
+      font-weight: 500;
+      margin-bottom: 40px;
+      max-width: 800px;
+      background-color: var(--light);
+      padding: 15px 25px;
+      border: var(--border-width) solid var(--dark);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transform: rotate(1deg);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 15px 30px;
+      border: var(--border-width) solid var(--dark);
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--light);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transform: rotate(-2deg);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--light);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transform: rotate(2deg);
+    }
+
+    .btn:hover {
+      transform: translate(-4px, -4px) rotate(0deg);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--dark);
+    }
+
+    /* Seção Sobre */
+    .about {
+      padding: 100px 40px;
+      background-color: var(--light);
+      position: relative;
+    }
+
+    .section-title {
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: var(--border-width);
+      background-color: var(--dark);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: var(--light);
+      padding: 30px;
+      border: var(--border-width) solid var(--dark);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transform: rotate(-1deg);
+    }
+
+    .about-image {
+      background-color: var(--tertiary);
+      border: var(--border-width) solid var(--dark);
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transform: rotate(2deg);
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-image::before {
+      content: 'FLOAT';
+      position: absolute;
+      font-size: 60px;
+      font-weight: 700;
+      color: var(--dark);
+      opacity: 0.2;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Seção Habilidades */
+    .skills {
+      padding: 100px 40px;
+      background-color: var(--dark);
+      color: var(--light);
+      position: relative;
+    }
+
+    .skills .section-title {
+      color: var(--light);
+    }
+
+    .skills .section-title::after {
+      background-color: var(--light);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .skill-card {
+      background-color: var(--dark);
+      border: var(--border-width) solid var(--light);
+      padding: 30px;
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--light);
+      transition: all 0.2s ease;
+      transform: rotate(-2deg);
+    }
+
+    .skill-card:nth-child(odd) {
+      background-color: var(--primary);
+      transform: rotate(-2deg);
+    }
+
+    .skill-card:nth-child(even) {
+      background-color: var(--secondary);
+      transform: rotate(2deg);
+    }
+
+    .skill-card:nth-child(3n) {
+      background-color: var(--tertiary);
+      transform: rotate(-1deg);
+    }
+
+    .skill-card:nth-child(4n) {
+      background-color: var(--quaternary);
+      transform: rotate(1deg);
+    }
+
+    .skill-card:hover {
+      transform: translate(-4px, -4px) rotate(0deg);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--light);
+    }
+
+    .skill-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .skill-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .skill-level {
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background-color: var(--light);
+    }
+
+    /* Seção Projetos */
+    .projects {
+      padding: 100px 40px;
+      background-color: var(--light);
+      position: relative;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background-color: var(--light);
+      border: var(--border-width) solid var(--dark);
+      overflow: hidden;
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transition: all 0.2s ease;
+      transform: rotate(-2deg);
+      position: relative;
+    }
+
+    .project-card:nth-child(odd) {
+      transform: rotate(-2deg);
+    }
+
+    .project-card:nth-child(even) {
+      transform: rotate(2deg);
+    }
+
+    .project-card:hover {
+      transform: translate(-4px, -4px) rotate(0deg);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--dark);
+    }
+
+    .project-image {
+      height: 250px;
+      background-color: var(--gray);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 10, 10, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .project-link {
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      border: var(--border-width) solid var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .project-link:hover {
+      transform: scale(1.1);
+      background-color: var(--secondary);
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .project-description {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .project-tag {
+      font-size: 14px;
+      font-weight: 500;
+      padding: 5px 10px;
+      background-color: var(--primary);
+      color: var(--light);
+      border: var(--border-width) solid var(--dark);
+    }
+
+    /* Seção Contato */
+    .contact {
+      padding: 100px 40px;
+      background-color: var(--dark);
+      color: var(--light);
+      position: relative;
+    }
+
+    .contact .section-title {
+      color: var(--light);
+    }
+
+    .contact .section-title::after {
+      background-color: var(--light);
+    }
+
+    .contact-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info {
+      background-color: var(--dark);
+      border: var(--border-width) solid var(--light);
+      padding: 30px;
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--light);
+      transform: rotate(-2deg);
+    }
+
+    .contact-form {
+      background-color: var(--primary);
+      border: var(--border-width) solid var(--light);
+      padding: 30px;
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--light);
+      transform: rotate(2deg);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      width: 40px;
+      height: 40px;
+      background-color: var(--light);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: var(--border-width) solid var(--light);
+    }
+
+    .contact-text {
+      font-size: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--light);
+      border: var(--border-width) solid var(--dark);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+    }
+
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-button {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 15px 30px;
+      border: var(--border-width) solid var(--light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+    }
+
+    .form-button:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--light);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 40px;
+      background-color: var(--light);
+      border-top: var(--border-width) solid var(--dark);
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .social-link {
+      width: 50px;
+      height: 50px;
+      background-color: var(--dark);
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 20px;
+      transition: all 0.2s ease;
+      border: var(--border-width) solid var(--dark);
+    }
+
+    .social-link:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--dark);
+    }
+
+    .copyright {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Elementos decorativos */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.7;
+      z-index: -1;
+    }
+
+    .blob-1 {
+      width: 300px;
+      height: 300px;
+      background-color: var(--primary);
+      top: 10%;
+      left: 5%;
+    }
+
+    .blob-2 {
+      width: 400px;
+      height: 400px;
+      background-color: var(--secondary);
+      bottom: 10%;
+      right: 5%;
+    }
+
+    .blob-3 {
+      width: 250px;
+      height: 250px;
+      background-color: var(--tertiary);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 60px;
+      }
+
+      .about-content, .contact-content {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animações */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .pulse-animation {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Estilo para a seção de idiomas */
+    .lang-switch {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    .lang-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: var(--border-width) solid var(--dark);
+      background-color: var(--light);
+      color: var(--dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--dark);
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--dark);
+    }
+
+    .lang-btn.active {
+      background-color: var(--primary);
+      color: var(--light);
+    }
+
     .hidden {
       display: none;
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <div class="container">
-      <div class="lang-switch">
-        <button class="btn btn-yellow" onclick="switchLang('pt')">🇧🇷 Português</button>
-        <button class="btn btn-blue" onclick="switchLang('en')">🇬🇧 English</button>
+  <!-- Cursor customizado -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Navegação -->
+  <nav>
+    <a href="#" class="logo">FLOAT</a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link" data-translate="nav-about">SOBRE</a>
+      <a href="#skills" class="nav-link" data-translate="nav-skills">HABILIDADES</a>
+      <a href="#projects" class="nav-link" data-translate="nav-projects">PROJETOS</a>
+      <a href="#contact" class="nav-link" data-translate="nav-contact">CONTATO</a>
+    </div>
+  </nav>
+
+  <!-- Seção Hero -->
+  <section class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span data-translate="hero-title-1">CRIATIVO</span>
+        <span data-translate="hero-title-2">DESENVOLVEDOR</span>
+        <span data-translate="hero-title-3">DESIGNER</span>
+      </h1>
+      <p class="hero-subtitle" data-translate="hero-subtitle">"Um designer e desenvolvedor que gosta de unir o mundo físico e virtual."</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary" data-translate="hero-btn-projects">VER PROJETOS</a>
+        <a href="#contact" class="btn btn-secondary" data-translate="hero-btn-contact">ENTRAR EM CONTATO</a>
       </div>
+    </div>
+  </section>
 
-      <!-- Versão em Português -->
-      <div id="pt">
-        <h1>Float</h1>
-        <p class="quote">"Um designer e desenvolvedor que gosta de unir o mundo físico e virtual."</p>
+  <!-- Seção Sobre -->
+  <section id="about" class="about">
+    <h2 class="section-title" data-translate="about-title">SOBRE MIM</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p><span data-translate="about-intro">Olá, eu sou o</span> <strong>Float</strong> <span data-translate="about-description">— desenvolvedor web, designer e estudante. Tenho afinidade com</span> <strong data-translate="about-skills-title">UX/UI Design</strong>, <strong data-translate="about-prototyping">prototipagem</strong> <span data-translate="about-and">e</span> <strong data-translate="about-frontend">programação front-end</strong>.</p>
+        <p><span data-translate="about-autistic">Autista nível 1 (Asperger), encontro foco e criatividade no equilíbrio entre o mundo virtual e o mundo físico. Gosto de tecnologia, Linux, música (C418, Lena Raine, Skillet, entre outros) e explorar estéticas visuais e ideias de aplicativos.</span></p>
+        <p><span data-translate="about-goal">Quero trabalhar na área de</span> <strong data-translate="about-goal-title">UX/UI Design</strong> <span data-translate="about-goal-description">e desenvolvimento front-end, criando experiências digitais claras, acessíveis e envolventes.</span></p>
+      </div>
+      <div class="about-image">
+        <img src="https://picsum.photos/seed/float/600/600.jpg" alt="Float">
+      </div>
+    </div>
+  </section>
 
-        <div class="section">
-          <h2>Sobre mim</h2>
-          <p>
-            Olá, eu sou o <span class="highlight">Float</span> — desenvolvedor web, designer e estudante.
-            Tenho afinidade com <strong>UX/UI Design</strong>, <strong>prototipagem</strong> e <strong>programação front-end</strong>.
-            Autista nível 1 (Asperger), encontro foco e criatividade no equilíbrio entre o mundo virtual e o mundo físico.
-            Gosto de tecnologia, Linux, música (C418, Lena Raine, Skillet, entre outros) e explorar estéticas visuais e ideias de aplicativos.
-          </p>
+  <!-- Seção Habilidades -->
+  <section id="skills" class="skills">
+    <h2 class="section-title" data-translate="skills-title">HABILIDADES</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fab fa-html5"></i>
         </div>
-
-        <div class="section">
-          <h2>Objetivo</h2>
-          <p>
-            Quero trabalhar na área de <strong>UX/UI Design</strong> e desenvolvimento front-end, criando experiências digitais claras,
-            acessíveis e envolventes.
-          </p>
+        <h3 class="skill-name">HTML</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 90%;"></div>
         </div>
-
-        <div class="section">
-          <h2>Habilidades</h2>
-          <p>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Prototipagem</span>
-            <span class="tag">Python/Ruby</span>
-            <span class="tag">UI/UX</span>
-          </p>
+        <p data-translate="skill-html">Estrutura semântica e acessibilidade</p>
+      </div>
+      
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fab fa-css3-alt"></i>
         </div>
-
-        <div class="section">
-          <h2>Experiência</h2>
-          <p><strong>Projetos pessoais</strong> — Criação de websites e jogos independentes, com foco em criatividade e diversão dos jogadores.</p>
-          <p><strong>Estudos no IFRO</strong> — Experiência acadêmica em tecnologia, design e desenvolvimento de software.</p>
+        <h3 class="skill-name">CSS</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 85%;"></div>
         </div>
+        <p data-translate="skill-css">Design responsivo e animações</p>
+      </div>
+      
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fab fa-js"></i>
+        </div>
+        <h3 class="skill-name">JavaScript</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 75%;"></div>
+        </div>
+        <p data-translate="skill-js">Interatividade e manipulação DOM</p>
+      </div>
+      
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fab fa-figma"></i>
+        </div>
+        <h3 class="skill-name">Figma</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 80%;"></div>
+        </div>
+        <p data-translate="skill-figma">Prototipagem e design de interfaces</p>
+      </div>
+      
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fab fa-python"></i>
+        </div>
+        <h3 class="skill-name">Python</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 70%;"></div>
+        </div>
+        <p data-translate="skill-python">Automação e desenvolvimento backend</p>
+      </div>
+      
+      <div class="skill-card">
+        <div class="skill-icon">
+          <i class="fas fa-palette"></i>
+        </div>
+        <h3 class="skill-name" data-translate="skill-uiux-title">UI/UX</h3>
+        <div class="skill-level">
+          <div class="skill-progress" style="width: 85%;"></div>
+        </div>
+        <p data-translate="skill-uiux">Design centrado no usuário</p>
+      </div>
+    </div>
+  </section>
 
-        <div class="section">
-          <h2>Contato</h2>
-          <a href="mailto:floatingfloatskies@protonmail.com" class="btn btn-green">📧 Email</a>
-          <a href="https://github.com/floatintosh" class="btn btn-blue">💻 GitHub</a>
-          <a href="#" class="btn btn-red">⚡ Teste</a>
+  <!-- Seção Projetos -->
+  <section id="projects" class="projects">
+    <h2 class="section-title" data-translate="projects-title">PROJETOS</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://picsum.photos/seed/project1/600/400.jpg" alt="Projeto 1">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3 class="project-title" data-translate="project1-title">Clownfish Web</h3>
+          <p class="project-description" data-translate="project1-desc">Um webapp de scrible/desenho, para pessoas que só querem desenhar como terapia ou anotar alguma coisa</p>
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag" data-translate="tag-uiux">UI/UX</span>
+          </div>
         </div>
       </div>
-
-      <!-- Versão em Inglês -->
-      <div id="en" class="hidden">
-        <h1>Float</h1>
-        <p class="quote">"A designer and developer who loves to connect the physical and virtual worlds."</p>
-
-        <div class="section">
-          <h2>About me</h2>
-          <p>
-            Hi, I'm <span class="highlight">Float</span> — a web developer, designer, and student.
-            I’m passionate about <strong>UX/UI Design</strong>, <strong>prototyping</strong>, and <strong>front-end programming</strong>.
-            As an autistic person (level 1 Asperger), I find focus and creativity in balancing clean design with functionality.
-            I enjoy technology, Linux, music (C418, Lena Raine, Skillet, and more), and exploring minimalistic aesthetics and app concepts.
-          </p>
+      
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://picsum.photos/seed/project2/600/400.jpg" alt="Projeto 2">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
         </div>
-
-        <div class="section">
-          <h2>Objective</h2>
-          <p>
-            I aim to work in <strong>UX/UI Design</strong> and front-end development, building clear,
-            accessible, and engaging digital experiences.
-          </p>
+        <div class="project-info">
+          <h3 class="project-title" data-translate="project2-title">Trabalhos Estudantis no IFRO</h3>
+          <p class="project-description" data-translate="project2-desc">Fiz trabalhos como no VanillaCore e uma clinica a pedido dos professores e colegas.</p>
+          <div class="project-tags">
+            <span class="project-tag">Figma</span>
+            <span class="project-tag" data-translate="tag-prototyping">Prototipagem</span>
+            <span class="project-tag" data-translate="tag-uiux">UI/UX</span>
+          </div>
         </div>
-
-        <div class="section">
-          <h2>Skills</h2>
-          <p>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Prototyping</span>
-            <span class="tag">Python/Ruby</span>
-            <span class="tag">UI/UX</span>
-          </p>
+      </div>
+      
+      <div class="project-card">
+        <div class="project-image">
+          <img src="https://picsum.photos/seed/project3/600/400.jpg" alt="Projeto 3">
+          <div class="project-overlay">
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fas fa-eye"></i>
+              </a>
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
         </div>
-
-        <div class="section">
-          <h2>Experience</h2>
-          <p><strong>Personal Projects</strong> — Development of independent websites and games, focusing on minimal design and intuitive UX/UI interfaces.</p>
-          <p><strong>IFRO Studies</strong> — Academic experience in technology, design, and software development.</p>
-        </div>
-
-        <div class="section">
-          <h2>Contact</h2>
-          <a href="mailto:floatingfloatskies@protonmail.com" class="btn btn-green">📧 Email</a>
-          <a href="https://github.com/floatintosh" class="btn btn-blue">💻 GitHub</a>
-          <a href="#" class="btn btn-red">⚡ Test</a>
+        <div class="project-info">
+          <h3 class="project-title" data-translate="project3-title">Jogos no Roblox com a Renard Six Studio e Floating Skies Development</h3>
+          <p class="project-description" data-translate="project3-desc">Eu faço jogos desde 2021, com jogos como Arctic Minigames e Legendary Minigames, Echo of Winter, e varios outros.</p>
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag" data-translate="tag-gamedesign">Game Design</span>
+            <span class="project-tag" data-translate="tag-pixelart">Pixel Art</span>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Seção Contato -->
+  <section id="contact" class="contact">
+    <h2 class="section-title" data-translate="contact-title">CONTATO</h2>
+    <div class="contact-content">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-text">floatingfloatskies@protonmail.com</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <div class="contact-text">github.com/azzynovais</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-text" data-translate="contact-location">Brasil</div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-language"></i>
+          </div>
+          <div class="contact-text" data-translate="contact-languages">Português / Inglês / Espanhol</div>
+        </div>
+      </div>
+      
+      <form class="contact-form">
+        <div class="form-group">
+          <label class="form-label" for="name" data-translate="form-name">NOME</label>
+          <input type="text" id="name" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="email" data-translate="form-email">EMAIL</label>
+          <input type="email" id="email" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="message" data-translate="form-message">MENSAGEM</label>
+          <textarea id="message" class="form-textarea" required></textarea>
+        </div>
+        
+        <button type="submit" class="form-button" data-translate="form-send">ENVIAR</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="social-links">
+      <a href="#" class="social-link">
+        <i class="fab fa-github"></i>
+      </a>
+      <a href="#" class="social-link">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="#" class="social-link">
+        <i class="fab fa-codepen"></i>
+      </a>
+      <a href="#" class="social-link">
+        <i class="fab fa-dribbble"></i>
+      </a>
+    </div>
+    <p class="copyright" data-translate="copyright">&copy; 2023 Float. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Switch de idioma -->
+  <div class="lang-switch">
+    <button class="lang-btn active" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="es">ES</button>
   </div>
 
   <script>
-    function switchLang(lang) {
-      document.getElementById('pt').classList.add('hidden');
-      document.getElementById('en').classList.add('hidden');
-      document.getElementById(lang).classList.remove('hidden');
+    // Traduções
+    const translations = {
+      pt: {
+        "nav-about": "SOBRE",
+        "nav-skills": "HABILIDADES",
+        "nav-projects": "PROJETOS",
+        "nav-contact": "CONTATO",
+        "hero-title-1": "CRIATIVO",
+        "hero-title-2": "DESENVOLVEDOR",
+        "hero-title-3": "DESIGNER",
+        "hero-subtitle": "\"Um designer e desenvolvedor que gosta de unir o mundo físico e virtual.\"",
+        "hero-btn-projects": "VER PROJETOS",
+        "hero-btn-contact": "ENTRAR EM CONTATO",
+        "about-title": "SOBRE MIM",
+        "about-intro": "Olá, eu sou o",
+        "about-description": "— desenvolvedor web, designer e estudante. Tenho afinidade com",
+        "about-skills-title": "UX/UI Design",
+        "about-prototyping": "prototipagem",
+        "about-and": "e",
+        "about-frontend": "programação front-end",
+        "about-autistic": "Autista nível 1 (Asperger), encontro foco e criatividade no equilíbrio entre o mundo virtual e o mundo físico. Gosto de tecnologia, Linux, música (C418, Lena Raine, Skillet, entre outros) e explorar estéticas visuais e ideias de aplicativos.",
+        "about-goal": "Quero trabalhar na área de",
+        "about-goal-title": "UX/UI Design",
+        "about-goal-description": "e desenvolvimento front-end, criando experiências digitais claras, acessíveis e envolventes.",
+        "skills-title": "HABILIDADES",
+        "skill-html": "Estrutura semântica e acessibilidade",
+        "skill-css": "Design responsivo e animações",
+        "skill-js": "Interatividade e manipulação DOM",
+        "skill-figma": "Prototipagem e design de interfaces",
+        "skill-python": "Automação e desenvolvimento backend",
+        "skill-uiux-title": "UI/UX",
+        "skill-uiux": "Design centrado no usuário",
+        "projects-title": "PROJETOS",
+        "project1-title": "Site Institucional Neobrutalista",
+        "project1-desc": "Design e desenvolvimento de um site institucional com estética neobrutalista, focado em tipografia ousada e cores vibrantes.",
+        "project2-title": "App de Produtividade Minimalista",
+        "project2-desc": "Aplicativo mobile com interface minimalista para gerenciamento de tarefas, focado em simplicidade e eficiência.",
+        "project3-title": "Jogo Indie com Estética Retrô",
+        "project3-desc": "Desenvolvimento de um jogo indie com estética visual inspirada em jogos dos anos 90, com mecânicas inovadoras.",
+        "tag-uiux": "UI/UX",
+        "tag-prototyping": "Prototipagem",
+        "tag-gamedesign": "Game Design",
+        "tag-pixelart": "Pixel Art",
+        "contact-title": "CONTATO",
+        "contact-location": "Brasil",
+        "contact-languages": "Português / Inglês / Espanhol",
+        "form-name": "NOME",
+        "form-email": "EMAIL",
+        "form-message": "MENSAGEM",
+        "form-send": "ENVIAR",
+        "copyright": "&copy; 2023 Float. Todos os direitos reservados."
+      },
+      en: {
+        "nav-about": "ABOUT",
+        "nav-skills": "SKILLS",
+        "nav-projects": "PROJECTS",
+        "nav-contact": "CONTACT",
+        "hero-title-1": "CREATIVE",
+        "hero-title-2": "DEVELOPER",
+        "hero-title-3": "DESIGNER",
+        "hero-subtitle": "\"A designer and developer who loves to connect the physical and virtual worlds.\"",
+        "hero-btn-projects": "VIEW PROJECTS",
+        "hero-btn-contact": "GET IN TOUCH",
+        "about-title": "ABOUT ME",
+        "about-intro": "Hello, I'm",
+        "about-description": "— web developer, designer and student. I have affinity with",
+        "about-skills-title": "UX/UI Design",
+        "about-prototyping": "prototyping",
+        "about-and": "and",
+        "about-frontend": "front-end programming",
+        "about-autistic": "Autistic level 1 (Asperger), I find focus and creativity in the balance between the virtual and physical world. I like technology, Linux, music (C418, Lena Raine, Skillet, among others) and exploring visual aesthetics and app ideas.",
+        "about-goal": "I want to work in",
+        "about-goal-title": "UX/UI Design",
+        "about-goal-description": "and front-end development, creating clear, accessible and engaging digital experiences.",
+        "skills-title": "SKILLS",
+        "skill-html": "Semantic structure and accessibility",
+        "skill-css": "Responsive design and animations",
+        "skill-js": "Interactivity and DOM manipulation",
+        "skill-figma": "Prototyping and interface design",
+        "skill-python": "Automation and backend development",
+        "skill-uiux-title": "UI/UX",
+        "skill-uiux": "User-centered design",
+        "projects-title": "PROJECTS",
+        "project1-title": "Neobrutalist Institutional Website",
+        "project1-desc": "Design and development of an institutional website with neobrutalist aesthetic, focused on bold typography and vibrant colors.",
+        "project2-title": "Minimalist Productivity App",
+        "project2-desc": "Mobile app with minimalist interface for task management, focused on simplicity and efficiency.",
+        "project3-title": "Indie Game with Retro Aesthetic",
+        "project3-desc": "Development of an indie game with visual aesthetic inspired by 90s games, with innovative mechanics.",
+        "tag-uiux": "UI/UX",
+        "tag-prototyping": "Prototyping",
+        "tag-gamedesign": "Game Design",
+        "tag-pixelart": "Pixel Art",
+        "contact-title": "CONTACT",
+        "contact-location": "Brazil",
+        "contact-languages": "Portuguese / English / Spanish",
+        "form-name": "NAME",
+        "form-email": "EMAIL",
+        "form-message": "MESSAGE",
+        "form-send": "SEND",
+        "copyright": "&copy; 2023 Float. All rights reserved."
+      },
+      es: {
+        "nav-about": "ACERCA DE",
+        "nav-skills": "HABILIDADES",
+        "nav-projects": "PROYECTOS",
+        "nav-contact": "CONTACTO",
+        "hero-title-1": "CREATIVO",
+        "hero-title-2": "DESARROLLADOR",
+        "hero-title-3": "DISEÑADOR",
+        "hero-subtitle": "\"Un diseñador y desarrollador que le gusta unir el mundo físico y virtual.\"",
+        "hero-btn-projects": "VER PROYECTOS",
+        "hero-btn-contact": "PONERSE EN CONTACTO",
+        "about-title": "ACERCA DE MÍ",
+        "about-intro": "Hola, soy",
+        "about-description": "— desarrollador web, diseñador y estudiante. Tengo afinidad con",
+        "about-skills-title": "UX/UI Design",
+        "about-prototyping": "prototipado",
+        "about-and": "y",
+        "about-frontend": "programación front-end",
+        "about-autistic": "Autista nivel 1 (Asperger), encuentro enfoque y creatividad en el equilibrio entre el mundo virtual y el mundo físico. Me gusta la tecnología, Linux, música (C418, Lena Raine, Skillet, entre otros) y explorar estéticas visuales e ideas de aplicaciones.",
+        "about-goal": "Quiero trabajar en",
+        "about-goal-title": "UX/UI Design",
+        "about-goal-description": "y desarrollo front-end, creando experiencias digitales claras, accesibles y atractivas.",
+        "skills-title": "HABILIDADES",
+        "skill-html": "Estructura semántica y accesibilidad",
+        "skill-css": "Diseño responsivo y animaciones",
+        "skill-js": "Interactividad y manipulación DOM",
+        "skill-figma": "Prototipado y diseño de interfaces",
+        "skill-python": "Automatización y desarrollo backend",
+        "skill-uiux-title": "UI/UX",
+        "skill-uiux": "Diseño centrado en el usuario",
+        "projects-title": "PROYECTOS",
+        "project1-title": "Sitio Institucional Neobrutalista",
+        "project1-desc": "Diseño y desarrollo de un sitio institucional con estética neobrutalista, enfocado en tipografía audaz y colores vibrantes.",
+        "project2-title": "App de Productividad Minimalista",
+        "project2-desc": "Aplicación móvil con interfaz minimalista para gestión de tareas, enfocado en simplicidad y eficiencia.",
+        "project3-title": "Juego Indie con Estética Retro",
+        "project3-desc": "Desarrollo de un juego indie con estética visual inspirada en juegos de los 90, con mecánicas innovadoras.",
+        "tag-uiux": "UI/UX",
+        "tag-prototyping": "Prototipado",
+        "tag-gamedesign": "Game Design",
+        "tag-pixelart": "Pixel Art",
+        "contact-title": "CONTACTO",
+        "contact-location": "Brasil",
+        "contact-languages": "Portugués / Inglés / Español",
+        "form-name": "NOMBRE",
+        "form-email": "EMAIL",
+        "form-message": "MENSAJE",
+        "form-send": "ENVIAR",
+        "copyright": "&copy; 2023 Float. Todos los derechos reservados."
+      }
+    };
+
+    // Cursor customizado
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      setTimeout(() => {
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+      }, 100);
+    });
+    
+    // Efeito hover nos links e botões
+    const links = document.querySelectorAll('a, button, .project-card, .skill-card');
+    
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      });
+      
+      link.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+    
+    // Animação de entrada ao rolar a página
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Aplicar animação aos elementos
+    const animateElements = document.querySelectorAll('.skill-card, .project-card, .about-text, .about-image, .contact-info, .contact-form');
+    
+    animateElements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+    
+    // Navegação suave
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Formulário de contato
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulação de envio
+      const button = this.querySelector('.form-button');
+      const originalText = button.textContent;
+      
+      button.textContent = translations[currentLang]['form-sent'] || 'ENVIADO!';
+      button.style.backgroundColor = '#00CC99';
+      
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.backgroundColor = '';
+        this.reset();
+      }, 3000);
+    });
+    
+    // Sistema de tradução
+    let currentLang = 'pt';
+    
+    function updateLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+      
+      // Atualizar todos os elementos com data-translate
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        if (translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Atualizar botões de idioma
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        }
+      });
     }
+    
+    // Event listeners para botões de idioma
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        updateLanguage(btn.getAttribute('data-lang'));
+      });
+    });
+    
+    // Adicionar efeito de digitação ao título
+    const heroTitle = document.querySelector('.hero-title');
+    const originalTitleHTML = heroTitle.innerHTML;
+    heroTitle.innerHTML = '';
+    
+    let i = 0;
+    function typeWriter() {
+      if (i < originalTitleHTML.length) {
+        heroTitle.innerHTML = originalTitleHTML.slice(0, i + 1);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+    
+    // Iniciar animação quando a página carregar
+    window.addEventListener('load', () => {
+      setTimeout(typeWriter, 500);
+    });
   </script>
 </body>
 </html>
